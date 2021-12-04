@@ -1,3 +1,3 @@
-const age = prompt("How old are you?");
+const hellos = document.getElementsByClassName("hello");
 
-console.log(typeof age);
+console.log(hellos)

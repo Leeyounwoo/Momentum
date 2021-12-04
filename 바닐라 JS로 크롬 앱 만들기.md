@@ -130,3 +130,38 @@ if (isNaN(age) || age < 0) {
 
 
 
+
+
+
+
+
+
+## 2. JavaScript on the Browser
+
+#### 1) The Document Object
+
+- Javascript에서 HTML을 읽어오거나 변경할 수 있게 해주는 객체
+
+- HTML과 JavaScript를 연결시켜줌
+
+~~~javascript
+document
+~~~
+
+#### 2) HTML in JavaScript
+
+- HTML element를 JavaScript로 접근
+
+```javascript
+document.getElementById("title")
+```
+
+#### 3) Searching for Elements
+
+```javascript
+document.querySelector(".hello h1")
+document.querySelectorAll(".hello h1")
+```
+
+
+
