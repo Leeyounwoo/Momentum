@@ -158,10 +158,113 @@ document.getElementById("title")
 
 #### 3) Searching for Elements
 
+- querySelector가 최고
+
 ```javascript
-document.querySelector(".hello h1")
 document.querySelectorAll(".hello h1")
+document.querySelector("div.hello:first-child h1")
 ```
 
+#### 4) Events
 
+```javascript
+const title = document.querySelector("div.hello:first-child h1")
+
+function handleTitleClick () {
+    title.style.color = "blue";
+}
+
+title.addEventListener("click", handleTitleClick);
+// title.addEventListener("click", handleTitleClick()) - X
+```
+
+- handleTitleClick() - X 
+  - 그저 JavaScript에 function만을 넘겨주고 JavaScript가 우리 대신 실행시켜줌
+
+#### 5) More Events
+
+```javascript
+h1.addEventListener("mouseenter", handleMouseEnter) 
+h1.addEventListener("mouseleave", handleMouseLeave)
+
+window.addEventListener("resize", handleWindowResize);
+window.addEventListener("copy", handleWindowCopy);
+window.addEventListener("offline", handleWindowOffline);
+window.addEventListener("online", handleWindowOnline);
+```
+
+#### 6) CSS in JavaScript
+
+```javascript
+const h1 = document.querySelector("div.hello:first-child h1")
+
+function handleTitleClick(){
+  const currentColor = h1.style.color;
+  let newColor;
+  if(currentColor === "blue"){
+    newColor = "tomato";
+  } else{
+    newColor = "blue";
+  }
+  h1.style.color = newColor;  
+}
+
+h1.addEventListener("click", handleTitleClick);
+```
+
+- style을 JavaScript에서 변경할 수 있지만, CSS 에서 바꾸는 것이 더 나음
+
+~~~css
+.clicked {
+  color: tomato;
+}
+~~~
+
+~~~javascript
+const h1 = document.querySelector("div.hello:first-child h1")
+
+function handleTitleClick(){
+  // clicked를 바로 쓰는게 아니라 const 변수로 저장해서 사용
+  const clickedClass = "clicked";
+  if(h1.className === clickedClass){
+    h1.className = "";
+  } else {
+    h1.className = clickedClass;
+  }
+}
+
+h1.addEventListener("click", handleTitleClick);
+~~~
+
+- 변수를 적을 때 실수를 할 수도 있기 때문에 ==const 변수를 만들어서 원하는 클래스 이름을 저장==
+- 현재 방법은 클래스 이름을 바꾸기 때문에 좋은 방법 아님(className 속성 이용했기 때문)
+
+```javascript
+const h1 = document.querySelector("div.hello:first-child h1")
+
+function handleTitleClick(){
+  const clickedClass = "clicked";
+  if(h1.classList.contains(clickedClass)){
+    h1.classList.remove(clickedClass);
+  } else {
+    h1.classList.add(clickedClass);
+  }
+}
+
+h1.addEventListener("click", handleTitleClick);
+```
+
+- ==toggle 함수==
+  - removing it if it's present and adding it if it's not present
+
+```javascript
+const h1 = document.querySelector("div.hello:first-child h1")
+
+function handleTitleClick(){
+  // h1의 classList에 clickedClass가 있는지 확인해서 있으면 없애고 없으면 추가
+  h1.classList.toggle("clicked")
+}
+
+h1.addEventListener("click", handleTitleClick);
+```
 
