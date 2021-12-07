@@ -1,6 +1,6 @@
 # 바닐라 JS로 크롬 앱 만들기
 
-## 1. Welcome to Javascript
+## 1. WELCOME TO JAVASCRIPT
 
 #### 1) const and let
 
@@ -8,11 +8,19 @@
 - let은 변수. 
 - const를 기본으로 사용하고 나중에 업데이트를 할 변수는 let으로 선언
 
+
+
+
+
 #### 2) Booleans
 
 - booleans 타입: true, false
 - null 타입: 변수 안에 어떤 것이 없다는 것을 확실히 하기 위해 사용(절대 자연적으로 발생 X)
 - undefined: 변수가 존재하는데, 값이 주어지지 않은 상태
+
+
+
+
 
 #### 3) Arrays
 
@@ -22,6 +30,10 @@ const daysOfWeek = ["mon", "tue", "wed", "thu", "fri", "sat"];
 // Add one more day to the array
 daysOfWeek.push("sun");
 ~~~
+
+
+
+
 
 #### 4) Objects
 
@@ -41,6 +53,10 @@ player.fat = false;
 // add
 player.lastName = "potato";
 ~~~
+
+
+
+
 
 #### 5) Functions
 
@@ -85,6 +101,10 @@ const calulator = {
     }
 };
 ```
+
+
+
+
 
 #### 6) Conditionals
 
@@ -136,7 +156,7 @@ if (isNaN(age) || age < 0) {
 
 
 
-## 2. JavaScript on the Browser
+## 2. JAVASCRIPT ON THE BROWSER
 
 #### 1) The Document Object
 
@@ -148,6 +168,10 @@ if (isNaN(age) || age < 0) {
 document
 ~~~
 
+
+
+
+
 #### 2) HTML in JavaScript
 
 - HTML element를 JavaScript로 접근
@@ -155,6 +179,10 @@ document
 ```javascript
 document.getElementById("title")
 ```
+
+
+
+
 
 #### 3) Searching for Elements
 
@@ -164,6 +192,10 @@ document.getElementById("title")
 document.querySelectorAll(".hello h1")
 document.querySelector("div.hello:first-child h1")
 ```
+
+
+
+
 
 #### 4) Events
 
@@ -181,6 +213,12 @@ title.addEventListener("click", handleTitleClick);
 - handleTitleClick() - X 
   - 그저 JavaScript에 function만을 넘겨주고 JavaScript가 우리 대신 실행시켜줌
 
+
+
+
+
+
+
 #### 5) More Events
 
 ```javascript
@@ -192,6 +230,10 @@ window.addEventListener("copy", handleWindowCopy);
 window.addEventListener("offline", handleWindowOffline);
 window.addEventListener("online", handleWindowOnline);
 ```
+
+
+
+
 
 #### 6) CSS in JavaScript
 
@@ -267,4 +309,156 @@ function handleTitleClick(){
 
 h1.addEventListener("click", handleTitleClick);
 ```
+
+
+
+
+
+
+
+
+
+## 3. LOGIN
+
+#### 1) Input Values
+
+- JavaScript에서 input 값 가져오기
+
+```html
+<div id="login-form">
+  <input type="text" placeholder="What is your name?">
+  <button>Log In</button>
+</div>
+```
+
+
+
+```javascript
+// document에서 id 이름으로 HTML element 가져오기
+const loginForm = document.querySelector('#login-form')
+
+// HTML element에서 태그이름으로 내부 HTML element 가져오기
+const loginInput = loginForm.querySelector("input")
+const loginButton = loginForm.querySelector("button")
+```
+
+```javascript
+// document에서 id이름으로 찾고 그 안의 태그이름으로 찾기
+const loginInput = document.querySelector("#login-form input")
+const loginButton = document.querySelector("#login-form button")
+
+function onLoginBtnClick() {
+  console.log(loginInput.value);
+}
+
+loginButton.addEventListener("clcik", onLoginBtnClick);
+```
+
+
+
+
+
+#### 2) Form Submission
+
+```javascript
+function onLoginBtnClick() {
+  const username = loginInput.value
+  if (username === ""){
+    alert("Please write your name.")
+  } else if (username.length > 15){
+    alert("Your name is Too long.")
+  }
+}
+
+loginButton.addEventListener("click", onLoginBtnClick);
+```
+
+- 위와 같이 JS로 유효성 검사를 해줄 수 있지만, 브라우저 자체의 기능을 사용할 수도 있음
+  - HTML의 input 태그 자체에서 required와 maxlength 등의 속성을 제공함
+  - 대신 ==input의 유효성 검사를 작동시키기 위해서는 input이 form 안에 있어야 함==
+
+- 하지만, <span style="color:red">button을 클릭하거나 엔터를 누르면 form이 sumit 되면서 웹페이지 전체를 새로고침함.</span>
+  - ==브라우저는 엔터를 누를 때 새로고침을 하고 form을 submit 하도록 되어있음.==
+- 우리가 하고 싶은건 페이지를 새로고침하지 않고 정보를 저장하는 것.
+
+
+
+
+
+#### 3) ==Events==
+
+- 이젠 loginForm 자체에서 submit 이벤트가 발생하는 것을 감지
+
+```javascript
+const loginForm = document.querySelector("#login-form");
+
+loginForm.addEventListener("submit", onLoginSubmit)
+```
+
+- addEventListener를 사용할 때 함수를 onLoginSubmit()으로 사용하지 않고 onLoginSubmit으로 사용
+  - ==()를 추가==하는건 function을 =='즉시' 실행==한다는 뜻
+  - **()을 작성하지 않으면 브라우저가 function을 실행시켜줌**
+    1. onLoginSubmit 함수를 호출
+    2. onLoginSubmit 함수의 첫 번째 인자로써 추가적인 정보(==방금 일어난 event에 대한 정보==)를 가진 채로 호출
+
+```javascript
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+
+function onLoginSubmit(event) {
+  event.preventDefault()
+  const username = loginInput.value;
+  console.log(username);
+}
+
+loginForm.addEventListener("submit", onLoginSubmit)
+```
+
+- ==event.preventDefault()==: 어떤 function에 대해 브라우저가 기본적으로 수행하는 동작을 막아줌.
+
+
+
+
+
+#### 4) Getting Username
+
+- 입력 ==> form 안보이게, Hello {유저이름} 보이게
+
+```html
+<form id="login-form">
+</form>
+<h1 id="greeting" class="hidden"></h1>
+```
+
+```css
+.hidden {
+  display: none;
+}
+```
+
+```javascript
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector('#greeting');
+
+// hidden이 2번 이상 사용되서 상수로 만들어줌
+const HIDDEN_CLASSNAME = "hidden"
+
+function onLoginSubmit(event) {
+  event.preventDefault()
+  const username = loginInput.value;
+  loginForm.classList.add(HIDDEN_CLASSNAME);
+  // greeting.innerText = "Hello " + username;
+  greeting.innerText = `Hello ${username}`;
+
+  greeting.classList.remove(HIDDEN_CLASSNAME)
+}
+
+
+loginForm.addEventListener("submit", onLoginSubmit)
+
+```
+
+- ==\`Hello ${username}\`==
+  - 문자열 안에서 변수 사용하기
 

@@ -1,14 +1,16 @@
-const h1 = document.querySelector("div.hello:first-child h1")
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector('#greeting');
 
-function handleTitleClick(){
-  // const clickedClass = "clicked";
-  // if(h1.classList.contains(clickedClass)){
-  //   h1.classList.remove(clickedClass);
-  // } else {
-  //   h1.classList.add(clickedClass);
-  // }
-  // h1의 classList에 clickedClass가 있는지 확인해서 있으면 없애고 없으면 추가
-  h1.classList.toggle("clicked")
+const HIDDEN_CLASSNAME = "hidden"
+
+function onLoginSubmit(event) {
+  event.preventDefault()
+  const username = loginInput.value;
+  loginForm.classList.add(HIDDEN_CLASSNAME);
+  greeting.innerText = "Hello " + username;
+  greeting.classList.remove(HIDDEN_CLASSNAME)
 }
 
-h1.addEventListener("click", handleTitleClick);
+
+loginForm.addEventListener("submit", onLoginSubmit)
