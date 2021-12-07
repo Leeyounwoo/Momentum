@@ -462,3 +462,56 @@ loginForm.addEventListener("submit", onLoginSubmit)
 - ==\`Hello ${username}\`==
   - 문자열 안에서 변수 사용하기
 
+
+
+
+
+#### 5) Saving Username
+
+- 유저이름을 한 번 입력하면 브라우저가 그 값을 저장하기
+
+```javascript
+localStorage.setItem('username', username)
+```
+
+- localStorage
+
+  - 브라우저에 뭔가 저장할 수 있게 해줌
+  - 항목 추가 (localStorage.setItem('myCat', 'Tom');)
+  - 항목 가져오기 (const cat = localStorage.getItem('myCat');)
+  - 항목 제거하기 (localStorage.removeItem('myCat');)
+
+  - https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage
+
+
+
+
+
+#### 6) Loading Username
+
+- 만약 localStorage에 username이 있다면 greeting, 없다면 form이 보이도록 한다
+
+```javascript
+// "username"이 여러번 쓰이므로 상수로 만들어준다.
+// localStorage 에서 username을 가져온다.
+const USERNAME_KEY = "username";
+const savedUsername = localStorage.getItem(USERNAME_KEY);
+
+// 여러번 실행되는 부분은 함수로 만든다
+function paintGreeing(username) {
+    greeting.classList.remove(HIDDEN_CLASSNAME);
+    greeting.innerText = `Hello ${username}`;
+}
+
+// 이름이 없으면 form 보여주고 eventListener 추가
+// 없으면 greeting 보여주기
+if (savedUsename === null) {
+    loginForm.classList.remove(HIDDEN_CLASSNAME);
+    loginForm.addEventListener("submit", onLoginSubmit);
+} else {
+    paintGreetings(savedUsername)
+}
+```
+
+
+
