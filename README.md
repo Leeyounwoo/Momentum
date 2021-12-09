@@ -515,3 +515,80 @@ if (savedUsename === null) {
 
 
 
+
+
+
+
+## 5. CLOCK
+
+#### 1) Intervals
+
+- Interval: '매번' 일어나야 하는 무언가
+
+  ex) 매 2초마다 무슨 일이 일어나게 하고 싶을 때 사용
+
+- ==setInterval(funciontName, 1000);==
+
+```javascript
+function sayHello() {
+    console.log("Hello");
+}
+
+// 첫 번째 인자: 실행하고자 하는 function
+// 두 번째 인자: 호출되는 function 간격을 몇 ms으로 할지
+setInterval(sayHello, 5000);
+```
+
+
+
+
+
+#### 2) Timeouts and Dates
+
+- setTimeout(functionName, 1000);
+  - 1초 뒤에 functionName을 호출
+
+- Date객체
+
+  ```javascript
+  const date = new Date()
+  
+  date.getHours()
+  date.getMinutes()
+  date.getSeconds()
+  ```
+
+```javascript
+const clock = document.querySelector("h2#clock");
+
+function getClock() {
+  const date = new Date();
+  clock.innerHTML = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}
+
+// setInterval은 1초를 기다렸다가 실행되기 때문에
+// getClock()을 먼저 한 번 실행
+getClock()
+setInterval(getClock, 1000);
+```
+
+
+
+
+
+#### 3) PadStart
+
+- padStart(2, '0')
+  - String에 쓸 수 있는 함수
+  - 첫 번째 인자: 원하는 최소 문자 길이
+  - 두 번째 인자: __앞에__ 추가할 문자
+- padEnd(2, '0')
+  - 두 번째 인자: __뒤에__ 추가할 문자
+
+```javascript
+const data = new Data();
+
+const hours = String(data.getHours()).padStart(2, '0');
+// const hours = data.getHours().toString().padStart(2, '0');
+```
+
