@@ -592,3 +592,62 @@ const hours = String(data.getHours()).padStart(2, '0');
 // const hours = data.getHours().toString().padStart(2, '0');
 ```
 
+
+
+
+
+
+
+
+
+## QUOTES AND BACKGROUND
+
+#### 1) Quotes
+
+- Math.random(): 0부터 1 사이의 랜덤한 숫자를 제공
+
+  ==> 0 ~ <span style="color:red;">9</span>까지의 숫자 
+
+  ```javascript
+  Math.random() * 10
+  ```
+
+- Math.round(): 반올림
+
+- Math.ceil(): 올림
+
+- Math.floor(): 내림
+
+```html
+<div id="quote">
+  <span></span>
+  <span></span>
+</div>
+```
+
+```javascript
+const quote = document.querySelector("#quote span:first-child");
+const author = document.qurySelector("#quote span:last-child");
+
+const todaysQuote = quotes[Math.floor(Math.random() * quotes.length)];
+```
+
+
+
+
+
+#### 2) Background
+
+- JavaScript에서 HTML 요소 만들고 추가하기
+  - document.createElement("tagName")으로 요소 만들기
+  - document.body.appendChild() 로 HTML에 추가
+    - appendChild(): 가장 뒤에 추가
+    - prepend(): 가장 앞에 추가
+
+```javascript
+const bgImg = document.createElement("img");
+bgImg.src = `img/${chosenImg}`
+
+document.body.appendChild(bgImg);
+```
+
