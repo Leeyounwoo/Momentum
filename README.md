@@ -651,3 +651,109 @@ bgImg.src = `img/${chosenImg}`
 document.body.appendChild(bgImg);
 ```
 
+
+
+
+
+
+
+
+
+## 7. TO DO LIST
+
+#### 1) Deleting To Dos
+
+- 버튼을 만들면서 EventListener를 추가한다.
+
+  ```javascript
+  function deleteToDO(event) {
+      const deleteToDoItem = event.target.parentNode;
+      deleteToDoItem.remove()
+  }
+  ```
+
+
+
+
+
+#### 2) Saving To Dos
+
+- todos를 localStorage에 저장
+
+  - 하지만, localStorage는 문자열만 저장 가능
+  - Array를 문자열로 변환(<span style="color:red;">JSON.stringify()</span>)
+
+  ```javascript
+  const todos = [];
+  function saveToDos() {
+    localStorage.setItem("todos", JSON.stringify(toDOs));
+  }
+  ```
+
+  
+
+#### 3) Loading To Dos
+
+- localStorage에 있는 todos를 가져오기
+
+  - 문자열을 Array로 바꾸기 (<span style="color:red;">JSON.parse()</span>)
+
+  - Array에 있는 각각의 item에 대해서 function을 실행하고 싶음 (<span style="color:red">.forEach()</span>)
+    ```javascript
+    array.forEach(element => {
+        console.log("Hello", element);
+    })
+    ```
+
+  - 페이지가 새로고침될 때마다 toDos 배열이 초기화 되는 문제
+
+    ```javascript
+    let toDos = []
+    
+    const savedToDos = localStorage.getItem(TODOS_KEY);
+    
+    if (savedToDos) {
+      const parsedToDos = JSON.parse(savedToDos);
+      toDo = parsedToDos;
+      parsedToDos.forEach(paintToDO);
+    }
+    ```
+
+    
+
+
+
+#### 4) Deleting To Dos
+
+- toDos의 자료구조를 바꿔서 어떤 element를 삭제하는지 찾자
+
+  ```javascript
+  const newToDoObj = {
+    text: newTodo,
+    id: Date.now()
+  };
+  ```
+
+- li를 저장할 때 id 값을 newToDoObj의 id로 사용
+
+  ```javascript
+  function paintToDo(newTodoObj) {
+    const toDoItem = document.createElement("li");
+    toDoItem.id = newTodoObj.id;
+    const content = document.createElement("span");
+    content.innerText = newTodoObj.text;
+  }
+  ```
+
+- filter함수를 적용해서 새로운 toDos를 만들어서 localStorage에 저장
+
+  ```javascript
+  function deleteToDo(event) {
+    const deleteToDoItem = event.target.parentNode;
+    deleteToDoItem.remove()
+    toDos = toDos.filter(todo => todo.id !== parseInt(deleteToDoItem.id));
+    saveToDos()
+  }
+  ```
+
+  
