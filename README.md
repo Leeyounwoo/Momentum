@@ -756,4 +756,64 @@ document.body.appendChild(bgImg);
   }
   ```
 
+
+
+
+
+
+
+
+
+
+## 8. WEATHER
+
+#### 1) Geolocation
+
+- getCurrentPosition은 succcess 함수와 error 함수 2개를 받는다.
+
+  ```javascript
+  function onGeoOk(position){
+    console.log("It's success!")
+  }
+  function onGeoError(){
+    alert("It's Fail")
+  }
+  
+  navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
+  ```
+
+
+
+
+
+#### 2) Weather API
+
+- https://openweathermap.org/api 사용
+
+  ```javascript
+  const API_KEY = "563e585dd9e92253052b32aef4361b52";
+  
+  function onGeoOk(position) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`;
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    
+    fetch(url).then(
+      response => response.json().then(data => {
+        const weather = document.querySelector("#weather span:first-child");
+        const city = document.querySelector("#weather span:last-child");
+        weather.innerText = `${data.weather[0].main} / ${data.main.temp}`;
+        city.innerText = data.name;
+      }
+      )
+    );
+  }
+  
+  function onGeoError() {
+    alert("Can't find you. No Weather for you.")
+  }
+  
+  navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
+  ```
+
   
